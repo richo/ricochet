@@ -126,7 +126,6 @@ signals:
 public slots:
     void closeChannel();
 
-protected:
     explicit Channel(const QString &type, Direction direction, Connection *connection);
     explicit Channel(ChannelPrivate *d);
     virtual ~Channel();

@@ -81,8 +81,14 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    QString fileName = QString::fromUtf8(argv[2]);
-    QFile f(fileName);
+    FILE *fh = fopen(argv[2], "r");
+    if (fh == NULL) {
+        std::cerr << "couldn't open " << argv[2] << std::endl;
+        return 1;
+    }
+
+    QFile f;
+    f.open(fh, QIODevice::ReadOnly);
     QByteArray ba = f.readAll();
 
     channel->receivePacket(ba);

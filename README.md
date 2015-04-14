@@ -1,3 +1,25 @@
+# AFL'ified ricochet
+
+This is a **Super** janky harness for AFL I knocked up in a couple of hours.
+Before wasting time and CPU on this, you should source dive, and pick out more
+interesting places to poke.
+
+All that said, the stuff in this branch:
+
+* `mktestcases.py`: Builds some really naive protobuf blobs to load and hand to packet handlers
+
+You'll want to build with afl-g++, the easiest way I found to do this was to
+`qmake` as usual, then hack up `Makefile.Release` to use the afl toolchain.
+
+Finally, run the fuzzer. The butchered version of main.cpp on this branch will
+load a file and then interpret it as either a `ChatMessage` or a
+`ContactRequest`. Again, you'll want to do something a bit cleverer when you're
+doing it live.
+
+Sample invocation as things stand:
+
+    ~/afl-1.67b/afl-fuzz -m 350 -i testcases -o output -- ./ricochet chat @@
+
 ### Anonymous metadata-resistant instant messaging that just works
 Ricochet is an experiment with a different kind of instant messaging that **doesn't trust anyone** with your identity, your contact list, or your communications.
 
